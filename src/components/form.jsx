@@ -74,7 +74,7 @@ class SignUp extends Component {
         disabled: true,
       });
 
-      setTimeout(() => this.props.history.push({ pathname: "/result" }), 5000);
+      setTimeout(() => this.props.history.push({ pathname: "/result" }), 1000);
     }
   };
   render() {

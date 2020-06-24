@@ -12,6 +12,7 @@ import { Link, Redirect } from "react-router-dom";
 import { impactEstimatedData } from "../redux/reducers/estimates/estimatorSelectors";
 import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
+import { createMessage } from "../redux/actions/messages";
 class results extends React.Component {
   state = {
     cuurrentlyInfected: 0,
@@ -40,6 +41,15 @@ class results extends React.Component {
         casesForVentilatorsByRequestedTime: this.props.Estimates.impact
           .casesForVentilatorsByRequestedTime,
       });
+      setTimeout(
+        () =>
+          this.props.createMessage({
+            dataReceived:
+              "Hey !! Check on the severe cases  clicking the link on the top of the form",
+          }),
+
+        6000
+      );
     }
   }
   render() {
@@ -127,4 +137,4 @@ class results extends React.Component {
 const mapStateToProps = createStructuredSelector({
   Estimates: impactEstimatedData,
 });
-export default connect(mapStateToProps, {})(results);
+export default connect(mapStateToProps, { createMessage })(results);

@@ -7,27 +7,52 @@ import Alerts from "./components/layout/Alerts";
 import Result from "./components/results";
 import SignUp from "./components/form";
 import Kenny from "./components/kenny";
+import { createStructuredSelector } from "reselect";
+import { connect } from "react-redux";
+import { selectIsLoading } from "./redux/reducers/estimates/estimatorSelectors";
+// import { getInputedata } from "./redux/actions/estimator/estimatorAction";
+import WithSpinner from "./components/with-spinner/withSpinner";
 
-function App() {
-  return (
-    <Router>
-      <div className="App">
-        <div>
-          <Header />
-        </div>{" "}
-        <Alerts />
-        <div className="auth-wrapper">
-          <div className="auth-inner">
-            <Switch>
-              <Route exact path="/" component={SignUp} />{" "}
-              <Route exact path="/result" component={Result} />{" "}
-              <Route exact path="/kenny" component={Kenny} />{" "}
-            </Switch>{" "}
+const SignUpWithSpinner = WithSpinner(SignUp);
+const ResultWithSpinner = WithSpinner(Result);
+
+class App extends React.Component {
+  render() {
+    const { isLoading } = this.props;
+    return (
+      <Router>
+        <div className="App">
+          <div>
+            <Header />
+          </div>{" "}
+          <Alerts />
+          <div className="auth-wrapper">
+            <div className="auth-inner">
+              <Switch>
+                <Route
+                  exact
+                  path="/"
+                  render={(props) => (
+                    <SignUpWithSpinner isLoading={isLoading} {...props} />
+                  )}
+                />
+                <Route
+                  exact
+                  path="/result"
+                  render={(props) => (
+                    <ResultWithSpinner isLoading={isLoading} {...props} />
+                  )}
+                />{" "}
+                <Route exact path="/kenny" component={Kenny} />{" "}
+              </Switch>{" "}
+            </div>{" "}
           </div>{" "}
         </div>{" "}
-      </div>{" "}
-    </Router>
-  );
+      </Router>
+    );
+  }
 }
-
-export default App;
+const mapStateToProps = createStructuredSelector({
+  isLoading: selectIsLoading,
+});
+export default connect(mapStateToProps, {})(App);

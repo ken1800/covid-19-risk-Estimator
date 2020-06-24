@@ -10,7 +10,7 @@ import { Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 
 const alertOptions = {
-  timeout: 3000,
+  timeout: 5000,
   position: "bottom right",
 };
 
@@ -19,7 +19,7 @@ ReactDOM.render(
     <BrowserRouter>
       <AlertProvider template={AlertTemplate} {...alertOptions}>
         <App />
-      </AlertProvider>
+      </AlertProvider>{" "}
     </BrowserRouter>{" "}
   </Provider>,
 

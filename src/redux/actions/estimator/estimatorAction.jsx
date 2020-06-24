@@ -3,15 +3,21 @@ import { createMessage } from "../messages";
 
 export const getInputedata = (data) => (dispatch) => {
   dispatch({
-    type: actionTypes.INPUTED_DATA,
-    payload: data,
+    type: actionTypes.IS_LOADING,
   });
-  dispatch(createMessage({ dataReceived: "Date received succesfully" }));
+
   setTimeout(
     () =>
-      dispatch(
-        createMessage({ dataReceived: "Hey We are done with your data" })
-      ),
-    4000
+      dispatch(createMessage({ dataReceived: "Data received succesfully" })),
+    1000
+  );
+
+  setTimeout(
+    () =>
+      dispatch({
+        type: actionTypes.INPUTED_DATA,
+        payload: data,
+      }),
+    2000
   );
 };

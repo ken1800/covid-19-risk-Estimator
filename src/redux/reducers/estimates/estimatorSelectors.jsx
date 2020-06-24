@@ -2,6 +2,11 @@ import { createSelector } from "reselect";
 
 const selectEstimate = (state) => state.estimate;
 
+export const selectIsLoading = createSelector(
+  [selectEstimate],
+  (estimate) => estimate.isLoading
+);
+
 export const selectEstimateInputs = createSelector(
   [selectEstimate],
   (estimate) => estimate.inputs
